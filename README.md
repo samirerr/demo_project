@@ -1,1 +1,1 @@
-[![CI](https://github.com/samirerr/demo_project/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/samirerr/demo_project/actions/workflows/ci.yml)
+[![DEV](https://github.com/samirerr/demo_project/actions/workflows/dev.yml/badge.svg)](https://github.com/samirerr/demo_project/actions/workflows/dev.yml)

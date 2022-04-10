@@ -1,5 +1,5 @@
 ---
-- name: installation d'outils pour la pipeline PetClinic
+- name: installation de nginx
   become: yes
   hosts: test 
   roles:

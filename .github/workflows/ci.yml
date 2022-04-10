@@ -20,7 +20,7 @@ jobs:
       
       - name: deploy
         run: |
-          tower-cli config host ${{ secrets.ANSIBLE_UR }}
+          tower-cli config host ${{ secrets.ANSIBLE_URL }}
           tower-cli config username ${{ secrets.ANSIBLE_USER }}
           tower-cli config password ${{ secrets.ANSIBLE_PASSWORD }}
           tower-cli config verify_ssl false

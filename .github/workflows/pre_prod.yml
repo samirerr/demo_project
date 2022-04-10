@@ -1,39 +1,40 @@
 ---
-name: pre_prod
-
 on:
-  push:
-    branches: ["main"]
+  pull_request:
+    branches: 
+      - main
+    types: [closed]
+
 jobs:
-  build-on-merge:
-    if: startsWith(github.event.head_commit.message, 'Merge pull request')
-  runs-on: ubuntu-latest
+  my-action:
+    if: ${{ github.event.pull_request.merged }}
+    runs-on: ubuntu-latest
 
-  steps:
-    - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
 
-    - name: Lint Ansible Playbook
-    # replace "master" with any valid ref
-      uses: ansible/ansible-lint-action@main
-      with:
-        targets: ""
-        # [optional]
-        # Arguments to override a package and its version to be set explicitly.
-        # Must follow the example syntax.
+      - name: Lint Ansible Playbook
+      # replace "master" with any valid ref
+        uses: ansible/ansible-lint-action@main
+        with:
+          targets: ""
+          # [optional]
+          # Arguments to override a package and its version to be set explicitly.
+          # Must follow the example syntax.
+            
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
 
-    - name: Set up Python 3.
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'
-
-    - name: Install test dependencies.
-      run: pip3 install ansible-tower-cli
-
-    - name: deploy
-      run: |
-        tower-cli config host ${{ secrets.ANSIBLE_URL }}
-        tower-cli config username ${{ secrets.ANSIBLE_USER }}
-        tower-cli config password ${{ secrets.ANSIBLE_PASSWORD }}
-        tower-cli config verify_ssl false
-        tower-cli job_template list --insecure
-        tower-cli job launch --job-template=23 --extra-vars="infra=pre_prod" --wait --monitor
+      - name: Install test dependencies.
+        run: pip3 install ansible-tower-cli
+      
+      - name: deploy
+        run: |
+          tower-cli config host ${{ secrets.ANSIBLE_URL }}
+          tower-cli config username ${{ secrets.ANSIBLE_USER }}
+          tower-cli config password ${{ secrets.ANSIBLE_PASSWORD }}
+          tower-cli config verify_ssl false
+          tower-cli job_template list --insecure
+          tower-cli job launch --job-template=19 --extra-vars="infra=pre_prod" --wait --monitor

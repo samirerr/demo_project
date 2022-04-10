@@ -1,6 +1,6 @@
 ---
 # tasks file for nginx
-- name: Install EPEL
+- name: Install EPEL  
   yum:
     name: epel-release
     update_cache: yes

@@ -1,13 +1,12 @@
 ---
-on:
-  pull_request:
-    branches: 
+name: Pre-Prod
+'on':
+  push:
+    branches:
       - main
-    types: [closed]
-
 jobs:
-  my-action:
-    if: ${{ github.event.pull_request.merged }}
+  deploy:
+    name: Deploy to pre prod
     runs-on: ubuntu-latest
 
     steps:

@@ -1,6 +1,6 @@
 ---
 - name: installation de nginx 
   become: yes
-  hosts: "{{ infra | default('pre_prod') }}"
+  hosts: "{{ infra | default('dev') }}" 
   roles:
     - nginx

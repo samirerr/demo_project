@@ -6,7 +6,7 @@ name: DEV
       - dev
 jobs:
   deploy:
-    name: Deploy to pre-production
+    name: Deploy to Dev
     runs-on: ubuntu-latest
 
     steps:

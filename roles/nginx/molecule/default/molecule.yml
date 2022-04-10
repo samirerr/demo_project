@@ -1,0 +1,40 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+lint: |
+  set -e
+  ansible-lint -x meta-incorrect,meta-no-info,package-latest,yaml
+platforms:
+  - name: vm1
+provisioner:
+  name: ansible
+  connection_options:
+    ansible_ssh_user: ansible
+    ansible_ssh_common_args: -o IdentitiesOnly=no
+  inventory:
+    links:
+      hosts: /etc/ansible/hosts
+      host_vars: /etc/ansible/host_vars
+
+verifier:
+  name: ansible
+  options:
+    sudo: true
+scenario:
+  test_sequence:
+    - dependency
+    - lint
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+      #    - idempotence
+    - side_effect
+    - verify
+    - cleanup
+      #    - destroy
+

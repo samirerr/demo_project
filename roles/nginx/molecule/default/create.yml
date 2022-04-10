@@ -1,0 +1,19 @@
+---
+- name: Create
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  no_log: "{{ molecule_no_log }}"
+  tasks:
+
+    - name: create molecule inventory
+      debug:
+        msg: skipping provisioning
+
+    - block:
+        - name: Populate instance config dict
+          set_fact:
+            instance_conf_dict: {
+              'instance': "{{ item.name }}", }
+          with_items: "{{ molecule_yml.platforms }}"
+          register: instance_config_dict

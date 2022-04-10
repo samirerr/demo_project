@@ -10,7 +10,7 @@ name: CI
 
 defaults:
   run:
-    working-directory: 'nginx'
+    working-directory: 'roles/nginx'
 
 jobs:
   molecule:

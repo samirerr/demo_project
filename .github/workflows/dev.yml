@@ -3,7 +3,7 @@ name: DEV
 'on':
   push:
     branches:
-      - dev
+      - main
 jobs:
   deploy:
     name: Deploy to pre-production
